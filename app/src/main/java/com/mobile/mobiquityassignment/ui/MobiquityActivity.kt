@@ -7,8 +7,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.mobile.mobiquityassignment.R
 import com.mobile.mobiquityassignment.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_mobiquity.*
 
+@AndroidEntryPoint
 class MobiquityActivity : BaseActivity() {
 
     override fun getLayoutResourceId() = R.layout.activity_mobiquity
