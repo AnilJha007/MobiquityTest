@@ -8,7 +8,6 @@
     app:cardElevation="@dimen/_4sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rvCities"
         style="@style/SectionStyle"
         android:padding="@dimen/_15sdp">
 

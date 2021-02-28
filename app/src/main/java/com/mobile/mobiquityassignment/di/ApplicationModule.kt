@@ -6,7 +6,6 @@ import com.google.gson.GsonBuilder
 import com.mobile.mobiquityassignment.BuildConfig
 import com.mobile.mobiquityassignment.service.database.MobiquityDatabase
 import com.mobile.mobiquityassignment.service.database.dao.CityDao
-import com.mobile.mobiquityassignment.service.repository.MobiquityRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -51,9 +50,6 @@ class ApplicationModule {
             .build()
 
     @Provides
-    fun provideCityDao(@ApplicationContext context: Context) =
+    fun provideCityDao(@ApplicationContext context: Context): CityDao =
         MobiquityDatabase.getInstance(context).cityDao()
-
-    @Provides
-    fun provideRepository(cityDao: CityDao) = MobiquityRepository(cityDao)
 }

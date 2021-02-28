@@ -16,6 +16,9 @@ interface CityDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCity(city: City): Long
 
+    @Query("SELECT COUNT(id) FROM city")
+    fun getCount(): Int
+
     @Query("SELECT * FROM city")
     fun getAllCities(): LiveData<MutableList<City>>
 
@@ -23,5 +26,5 @@ interface CityDao {
     fun getCityById(id: Long): LiveData<City>
 
     @Query("DELETE FROM city WHERE id = :id")
-    fun deleteCityById(id: Long)
+    suspend fun deleteCityById(id: Long)
 }

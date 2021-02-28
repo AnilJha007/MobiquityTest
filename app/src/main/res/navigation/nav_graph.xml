@@ -8,5 +8,6 @@
     <fragment
         android:id="@+id/homeDest"
         android:name="com.mobile.mobiquityassignment.ui.home.HomeFragment"
+        android:label="@string/mobiquity"
         tools:layout="@layout/fragment_home" />
 </navigation>

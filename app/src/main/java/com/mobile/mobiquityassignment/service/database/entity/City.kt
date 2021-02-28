@@ -8,5 +8,5 @@ data class City(
     @PrimaryKey val id: Long,
     val latitude: Double,
     val longitude: Double,
-    val city: String
+    val cityName: String
 )
