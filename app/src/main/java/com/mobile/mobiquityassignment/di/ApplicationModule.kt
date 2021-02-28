@@ -1,11 +1,16 @@
 package com.mobile.mobiquityassignment.di
 
+import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.mobile.mobiquityassignment.BuildConfig
+import com.mobile.mobiquityassignment.service.database.MobiquityDatabase
+import com.mobile.mobiquityassignment.service.database.dao.CityDao
+import com.mobile.mobiquityassignment.service.repository.MobiquityRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -44,4 +49,11 @@ class ApplicationModule {
             .baseUrl(baseUrl)
             .client(okHttpClient)
             .build()
+
+    @Provides
+    fun provideCityDao(@ApplicationContext context: Context) =
+        MobiquityDatabase.getInstance(context).cityDao()
+
+    @Provides
+    fun provideRepository(cityDao: CityDao) = MobiquityRepository(cityDao)
 }
