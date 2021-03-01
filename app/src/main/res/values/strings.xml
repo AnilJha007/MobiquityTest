@@ -23,4 +23,5 @@
     <string name="humidity_info">Humidity: %d</string>
     <string name="sunrise_time">Sunrise: %s</string>
     <string name="sunset_time">Sunset: %s</string>
+    <string name="five_days_forecast">Five Days Forecast</string>
 </resources>

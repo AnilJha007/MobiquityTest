@@ -2,11 +2,15 @@ package com.mobile.mobiquityassignment.service.model
 
 import com.google.gson.annotations.SerializedName
 
+data class FiveDaysForecastResponse(val list: ArrayList<ForecastResponse>)
+
 data class ForecastResponse(
     val weather: ArrayList<Weather>,
     val main: Main,
     val wind: Wind,
-    val sys: Sys
+    val sys: Sys,
+    @SerializedName("dt_txt")
+    val date: String
 )
 
 data class Weather(val id: Long, val main: String, val description: String, val icon: String)

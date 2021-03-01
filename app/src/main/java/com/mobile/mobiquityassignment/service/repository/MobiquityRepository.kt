@@ -19,4 +19,7 @@ class MobiquityRepository @Inject constructor(
     suspend fun deleteCity(id: Long) = cityDao.deleteCityById(id)
 
     suspend fun getTodayForecast(lat: Double, long: Double) = apiHelper.getTodayForecast(lat, long)
+
+    suspend fun getFiveDaysForecast(lat: Double, long: Double) =
+        apiHelper.getFiveDaysForecast(lat, long)
 }

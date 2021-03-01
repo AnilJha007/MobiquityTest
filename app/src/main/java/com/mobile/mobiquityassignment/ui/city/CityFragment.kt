@@ -5,12 +5,14 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import com.mobile.mobiquityassignment.R
 import com.mobile.mobiquityassignment.base.BaseFragment
+import com.mobile.mobiquityassignment.service.model.FiveDaysForecastResponse
 import com.mobile.mobiquityassignment.service.model.ForecastResponse
 import com.mobile.mobiquityassignment.service.utility.ApiStatus
 import com.mobile.mobiquityassignment.ui.home.HomeViewModel
 import com.mobile.mobiquityassignment.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_city.*
+import kotlinx.android.synthetic.main.layout_bottom_sheet.*
 
 @AndroidEntryPoint
 class CityFragment : BaseFragment() {
@@ -20,6 +22,7 @@ class CityFragment : BaseFragment() {
     }
 
     private var cityId: Long? = null
+    private lateinit var adapter: FiveDaysForecastAdapter
     private val homeViewModel: HomeViewModel by viewModels()
     private val cityViewModel: CityViewModel by viewModels()
 
@@ -28,17 +31,29 @@ class CityFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         cityId = arguments?.getLong(CITY_ID_ARG)
+        setAdapter()
         initViewModel()
+    }
+
+    private fun setAdapter() {
+        adapter = FiveDaysForecastAdapter()
+        rvBottomSheet.adapter = adapter
     }
 
     private fun initViewModel() {
         cityId?.let {
             homeViewModel.getCityById(it).observe(viewLifecycleOwner, { city ->
                 setPageTitle(city.cityName)
+
                 cityViewModel.getTodayForecast(
                     city.latitude,
                     city.longitude
                 ) // calling today forecast api
+
+                cityViewModel.getFiveDaysForecast(
+                    city.latitude,
+                    city.longitude
+                ) // calling five days forecast api
             })
         }
 
@@ -62,6 +77,28 @@ class CityFragment : BaseFragment() {
                 }
             }
         })
+
+        cityViewModel.fiveDaysForecastLiveData.observe(viewLifecycleOwner, { resources ->
+            when (resources.status) {
+                ApiStatus.LOADING -> {
+                    // do nothing
+                }
+                ApiStatus.SUCCESS -> {
+                    setFiveDaysForecastData(resources.data)
+                }
+                ApiStatus.ERROR -> {
+                    resources.message?.let {
+                        constraintCity.snackBar(it)
+                    }
+                }
+            }
+        })
+    }
+
+    private fun setFiveDaysForecastData(data: FiveDaysForecastResponse?) {
+        data?.let {
+            adapter.updateData(it.list)
+        }
     }
 
     private fun setData(data: ForecastResponse?) {
