@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">MobiquityAssignment</string>
     <string name="map_api_key">AIzaSyADXbJZ2TqjTT2BRU7MB1N4ht2v0WlNmAg</string>
+    <string name="something_went_wrong">"Something wrong. Please try again later."</string>
 
     <!--home screen-->
     <string name="mobiquity">Mobiquity</string>

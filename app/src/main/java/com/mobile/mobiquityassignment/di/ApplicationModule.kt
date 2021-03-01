@@ -4,6 +4,9 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.mobile.mobiquityassignment.BuildConfig
+import com.mobile.mobiquityassignment.service.api.ApiHelper
+import com.mobile.mobiquityassignment.service.api.ApiHelperImpl
+import com.mobile.mobiquityassignment.service.api.ApiService
 import com.mobile.mobiquityassignment.service.database.MobiquityDatabase
 import com.mobile.mobiquityassignment.service.database.dao.CityDao
 import dagger.Module
@@ -52,4 +55,10 @@ class ApplicationModule {
     @Provides
     fun provideCityDao(@ApplicationContext context: Context): CityDao =
         MobiquityDatabase.getInstance(context).cityDao()
+
+    @Provides
+    fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
+
+    @Provides
+    fun provideApiHelper(apiHelperImpl: ApiHelperImpl): ApiHelper = apiHelperImpl
 }
