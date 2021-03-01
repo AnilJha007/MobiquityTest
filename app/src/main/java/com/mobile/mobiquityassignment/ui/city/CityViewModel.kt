@@ -11,6 +11,7 @@ import com.mobile.mobiquityassignment.service.model.ErrorResponse
 import com.mobile.mobiquityassignment.service.model.FiveDaysForecastResponse
 import com.mobile.mobiquityassignment.service.model.ForecastResponse
 import com.mobile.mobiquityassignment.service.repository.MobiquityRepository
+import com.mobile.mobiquityassignment.service.utility.NetworkHelper
 import com.mobile.mobiquityassignment.service.utility.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -20,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CityViewModel @Inject constructor(
     @ApplicationContext private val ctx: Context,
-    private val repository: MobiquityRepository
+    private val repository: MobiquityRepository,
+    private val networkHelper: NetworkHelper
 ) : ViewModel() {
 
     private val _todayForecastMutableLiveData by lazy { MutableLiveData<Resource<ForecastResponse>>() }
@@ -39,19 +41,24 @@ class CityViewModel @Inject constructor(
         with(_todayForecastMutableLiveData) {
             value = Resource.loading(null)
             viewModelScope.launch {
-                val response = repository.getTodayForecast(lat, long)
-                response.takeIf { it.isSuccessful }?.let { res ->
-                    res.body()?.let {
-                        value = Resource.success(it)
+                if (networkHelper.isNetworkConnected()) {
+                    val response = repository.getTodayForecast(lat, long)
+                    response.takeIf { it.isSuccessful }?.let { res ->
+                        res.body()?.let {
+                            value = Resource.success(it)
+                        } ?: run {
+                            value =
+                                Resource.error(ctx.getString(R.string.something_went_wrong), null)
+                        }
                     } ?: run {
-                        value = Resource.error(ctx.getString(R.string.something_went_wrong), null)
+                        response.errorBody()?.let {
+                            val errorResponse =
+                                Gson().fromJson(it.charStream(), ErrorResponse::class.java)
+                            value = Resource.error(errorResponse.message, null)
+                        }
                     }
-                } ?: run {
-                    response.errorBody()?.let {
-                        val errorResponse =
-                            Gson().fromJson(it.charStream(), ErrorResponse::class.java)
-                        value = Resource.error(errorResponse.message, null)
-                    }
+                } else {
+                    value = Resource.error(ctx.getString(R.string.something_went_wrong), null)
                 }
             }
         }
@@ -61,19 +68,24 @@ class CityViewModel @Inject constructor(
         with(_fiveDaysForecastMutableLiveData) {
             value = Resource.loading(null)
             viewModelScope.launch {
-                val response = repository.getFiveDaysForecast(lat, long)
-                response.takeIf { it.isSuccessful }?.let { res ->
-                    res.body()?.let {
-                        value = Resource.success(it)
+                if (networkHelper.isNetworkConnected()) {
+                    val response = repository.getFiveDaysForecast(lat, long)
+                    response.takeIf { it.isSuccessful }?.let { res ->
+                        res.body()?.let {
+                            value = Resource.success(it)
+                        } ?: run {
+                            value =
+                                Resource.error(ctx.getString(R.string.something_went_wrong), null)
+                        }
                     } ?: run {
-                        value = Resource.error(ctx.getString(R.string.something_went_wrong), null)
+                        response.errorBody()?.let {
+                            val errorResponse =
+                                Gson().fromJson(it.charStream(), ErrorResponse::class.java)
+                            value = Resource.error(errorResponse.message, null)
+                        }
                     }
-                } ?: run {
-                    response.errorBody()?.let {
-                        val errorResponse =
-                            Gson().fromJson(it.charStream(), ErrorResponse::class.java)
-                        value = Resource.error(errorResponse.message, null)
-                    }
+                } else {
+                    value = Resource.error(ctx.getString(R.string.something_went_wrong), null)
                 }
             }
         }
