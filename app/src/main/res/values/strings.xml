@@ -2,6 +2,7 @@
     <string name="app_name">MobiquityAssignment</string>
     <string name="map_api_key">AIzaSyADXbJZ2TqjTT2BRU7MB1N4ht2v0WlNmAg</string>
     <string name="something_went_wrong">"Something wrong. Please try again later."</string>
+    <string name= "image_base_url">http://openweathermap.org/img/wn/</string>
 
     <!--home screen-->
     <string name="mobiquity">Mobiquity</string>
@@ -15,4 +16,11 @@
     <string name="my_location">My Location</string>
     <string name="okay">Okay</string>
     <string name="cancel">Cancel</string>
+
+    <!--city screen-->
+    <string name="temperature_in_centi">%s °C</string>
+    <string name="wind_info">Wind speed: %s</string>
+    <string name="humidity_info">Humidity: %d</string>
+    <string name="sunrise_time">Sunrise: %s</string>
+    <string name="sunset_time">Sunset: %s</string>
 </resources>

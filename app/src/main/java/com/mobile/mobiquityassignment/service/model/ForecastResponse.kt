@@ -9,9 +9,10 @@ data class ForecastResponse(
     val sys: Sys
 )
 
-data class Weather(val id: Long, val main: String, val description: String)
+data class Weather(val id: Long, val main: String, val description: String, val icon: String)
 
 data class Main(
+    val temp: Float,
     @SerializedName("temp_min")
     val minTemp: Float,
     @SerializedName("temp_max")

@@ -5,9 +5,10 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import com.mobile.mobiquityassignment.R
 import com.mobile.mobiquityassignment.base.BaseFragment
+import com.mobile.mobiquityassignment.service.model.ForecastResponse
 import com.mobile.mobiquityassignment.service.utility.ApiStatus
 import com.mobile.mobiquityassignment.ui.home.HomeViewModel
-import com.mobile.mobiquityassignment.utils.snackBar
+import com.mobile.mobiquityassignment.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_city.*
 
@@ -51,7 +52,7 @@ class CityFragment : BaseFragment() {
                 }
                 ApiStatus.SUCCESS -> {
                     hideDialog()
-
+                    setData(resources.data)
                 }
                 ApiStatus.ERROR -> {
                     hideDialog()
@@ -61,5 +62,49 @@ class CityFragment : BaseFragment() {
                 }
             }
         })
+    }
+
+    private fun setData(data: ForecastResponse?) {
+        data?.let {
+            cardForecast.show()
+
+            tvWind.setTextOrHide(
+                getString(
+                    R.string.wind_info,
+                    String.format("%.2f", it.wind.speed)
+                )
+            )
+            with(it.main) {
+                tvTemperature.setTextOrHide(getTemperature(temp))
+                ivMinTemp.show()
+                tvMinTemp.setTextOrHide(getTemperature(minTemp))
+                ivMaxTemp.show()
+                tvMaxTemp.setTextOrHide(getTemperature(maxTemp))
+
+                tvHumidity.setTextOrHide(getString(R.string.humidity_info, humidity))
+            }
+
+            with(it.sys) {
+                tvSunrise.setTextOrHide(
+                    getString(
+                        R.string.sunrise_time,
+                        sunrise.getFormattedTime()
+                    )
+                )
+                tvSunset.setTextOrHide(getString(R.string.sunset_time, sunset.getFormattedTime()))
+            }
+
+            with(it.weather.first()) {
+                tvWeather.setTextOrHide(description)
+                ivWeather.setImage(getString(R.string.image_base_url).plus(icon).plus(".png"))
+            }
+        }
+    }
+
+    private fun getTemperature(minTemp: Float): String? {
+        return getString(
+            R.string.temperature_in_centi,
+            String.format("%.2f", minTemp - 273.1)
+        )
     }
 }

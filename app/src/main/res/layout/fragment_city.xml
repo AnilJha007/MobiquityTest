@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintCity"
     style="@style/MatchParentStyle">
 
@@ -11,4 +13,166 @@
         android:scaleType="centerCrop"
         android:src="@drawable/weather_background" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardForecast"
+        style="@style/SectionStyle"
+        android:layout_margin="@dimen/_8sdp"
+        android:visibility="gone"
+        app:cardCornerRadius="@dimen/_4sdp"
+        app:cardElevation="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/SectionStyle"
+            android:padding="@dimen/_10sdp">
+
+            <TextView
+                android:id="@+id/tvTemperature"
+                style="@style/WrapContentStyle"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20sdp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="32.C"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tvHumidity"
+                style="@style/ZeroWidthStyle"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/_13sdp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/guideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTemperature"
+                tools:text="Humidity: 132"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tvSunrise"
+                style="@style/ZeroWidthStyle"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/_13sdp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/tvTemperature"
+                tools:text="Sunrise: 06 AM"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tvWind"
+                style="@style/ZeroWidthStyle"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/_13sdp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/guideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvHumidity"
+                tools:text="Wind: 2.43"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tvSunset"
+                style="@style/ZeroWidthStyle"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/_13sdp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/tvHumidity"
+                tools:text="Sunset: 11 PM"
+                tools:visibility="visible" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                style="@style/WrapContentStyle"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <ImageView
+                android:id="@+id/ivMinTemp"
+                style="@style/WrapContentStyle"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:src="@drawable/low_temperature"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvWind"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tvMinTemp"
+                style="@style/WrapContentStyle"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:textColor="@color/teal_200"
+                android:textSize="@dimen/_12sdp"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/ivMinTemp"
+                app:layout_constraintTop_toTopOf="@+id/ivMinTemp"
+                tools:text="100 C"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/ivMaxTemp"
+                style="@style/WrapContentStyle"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:src="@drawable/high_temperature"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/tvWind"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tvMaxTemp"
+                style="@style/WrapContentStyle"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:textColor="@color/teal_200"
+                android:textSize="@dimen/_12sdp"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/ivMaxTemp"
+                app:layout_constraintTop_toTopOf="@+id/ivMaxTemp"
+                tools:text="120 C"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/ivWeather"
+                style="@style/WrapContentStyle"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivMinTemp"
+                tools:src="@drawable/ic_weather"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tvWeather"
+                style="@style/WrapContentStyle"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/ivWeather"
+                app:layout_constraintTop_toBottomOf="@+id/ivMinTemp"
+                tools:text="Clear sky"
+                tools:visibility="visible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

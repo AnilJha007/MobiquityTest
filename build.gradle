@@ -19,6 +19,7 @@ buildscript {
         location_version = '18.0.0'
         google_map_version = '17.0.0'
         spot_dialog_version = "1.1@aar"
+        glide_version = "4.11.0"
     }
     repositories {
         google()
