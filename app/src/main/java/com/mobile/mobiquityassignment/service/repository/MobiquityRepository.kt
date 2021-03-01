@@ -13,6 +13,8 @@ class MobiquityRepository @Inject constructor(
 
     fun getAllCities() = cityDao.getAllCities()
 
+    fun getCityById(id: Long) = cityDao.getCityById(id)
+
     suspend fun addCity(city: City) = cityDao.insertCity(city)
 
     suspend fun deleteCity(id: Long) = cityDao.deleteCityById(id)

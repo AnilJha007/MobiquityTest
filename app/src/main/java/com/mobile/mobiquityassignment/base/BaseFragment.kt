@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.mobile.mobiquityassignment.ui.MobiquityActivity
 
 abstract class BaseFragment : Fragment() {
 
@@ -17,13 +18,15 @@ abstract class BaseFragment : Fragment() {
         return inflater.inflate(getLayoutResourceId(), container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        setPageTitle()
+    /* override this method in fragment to update page title*/
+    open fun setPageTitle(title: String) {
+        getActionBar()?.let {
+            it.title = title
+            it.show()
+        }
     }
 
-    /* override this method in fragment to update page title*/
-    open fun setPageTitle() {}
+    private fun getActionBar() = ((activity as? MobiquityActivity)?.supportActionBar)
 
     /* override this method in fragment to attach the layout*/
     abstract fun getLayoutResourceId(): Int

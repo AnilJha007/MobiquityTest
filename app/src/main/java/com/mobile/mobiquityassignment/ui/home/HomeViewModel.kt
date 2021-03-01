@@ -13,6 +13,8 @@ class HomeViewModel @Inject constructor(private val repository: MobiquityReposit
 
     fun getAllCities() = repository.getAllCities()
 
+    fun getCityById(id: Long) = repository.getCityById(id)
+
     fun addCity(city: City) {
         viewModelScope.launch { repository.addCity(city) }
     }
