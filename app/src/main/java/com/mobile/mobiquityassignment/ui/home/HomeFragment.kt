@@ -3,6 +3,7 @@ package com.mobile.mobiquityassignment.ui.home
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.mobile.mobiquityassignment.R
 import com.mobile.mobiquityassignment.base.BaseFragment
 import com.mobile.mobiquityassignment.service.database.entity.City
@@ -35,13 +36,13 @@ class HomeFragment : BaseFragment() {
         if (shouldDelete) {
             viewModel.deleteCityById(city.id)
         } else {
-
+            // TODO: not implemented yet
         }
     }
 
     private fun initListener() {
         fabAddLocation.setOnClickListener {
-            viewModel.addCity(City(1, 26.3740, 85.6991, "Kharka Basant"))
+            findNavController().navigate(R.id.actionHomeToSelectCity)
         }
     }
 

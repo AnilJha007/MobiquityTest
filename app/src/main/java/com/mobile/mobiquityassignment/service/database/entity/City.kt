@@ -5,8 +5,10 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class City(
-    @PrimaryKey val id: Long,
     val latitude: Double,
     val longitude: Double,
     val cityName: String
-)
+) {
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
+}

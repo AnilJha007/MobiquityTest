@@ -1,7 +1,17 @@
 <resources>
     <string name="app_name">MobiquityAssignment</string>
-    <string name="mobiquity">Mobiquity</string>
-    <string name="select_city">Select City</string>
-    <string name="no_bookmarked_city">No bookmark city yet</string>
+    <string name="map_api_key">AIzaSyADXbJZ2TqjTT2BRU7MB1N4ht2v0WlNmAg</string>
 
+    <!--home screen-->
+    <string name="mobiquity">Mobiquity</string>
+    <string name="no_bookmarked_city">You haven\'t added any city yet</string>
+
+    <!--select city screen-->
+    <string name="select_city">Select City</string>
+    <string name="device_location_enabled_declined">You need to allow access to location in order to see nearest bus stops.</string>
+    <string name="unable_to_change_location_service">Sorry, we are not able to change location setting on your device.</string>
+    <string name="unable_to_fetch_location">Sorry, we are not able to fetch location, please try later.</string>
+    <string name="my_location">My Location</string>
+    <string name="okay">Okay</string>
+    <string name="cancel">Cancel</string>
 </resources>

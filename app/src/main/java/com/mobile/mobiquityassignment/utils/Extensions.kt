@@ -1,8 +1,16 @@
 package com.mobile.mobiquityassignment.utils
 
+import android.Manifest
+import android.app.Activity
+import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import com.google.android.material.snackbar.Snackbar
+import com.mobile.mobiquityassignment.ui.home.SelectCityFragment.Companion.LOCATION_REQUEST_CODE
 
 fun View.snackBar(text: String, duration: Int = Snackbar.LENGTH_SHORT): Snackbar {
     return Snackbar.make(this, text, duration).apply { show() }
@@ -21,4 +29,15 @@ fun View.hide() {
 
 fun View.show() {
     this.visibility = View.VISIBLE
+}
+
+fun Context.hasLocationPermission() = ActivityCompat.checkSelfPermission(
+    this,
+    Manifest.permission.ACCESS_FINE_LOCATION
+) == PackageManager.PERMISSION_GRANTED
+
+@RequiresApi(Build.VERSION_CODES.M)
+fun Activity.requestLocationPermission() {
+    val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+    requestPermissions(permissions, LOCATION_REQUEST_CODE)
 }
